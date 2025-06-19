@@ -25,7 +25,7 @@ public class ShippingProducer {
     public void sendMessage(Order order) {
         try {
             String json = objectMapper.writeValueAsString(order);
-            kafkaTemplate.send(shippingsTopic, json);
+            kafkaTemplate.send(shippingsTopic, order.getId().toString(), json);
             logger.info("Shipping message sent to topic {}", shippingsTopic);
         } catch (JsonProcessingException e) {
             logger.error("Error while sending shipping message", e);

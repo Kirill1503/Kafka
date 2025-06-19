@@ -22,7 +22,7 @@ public class ShippingConsumer {
         this.shippingProducer = shippingProducer;
     }
 
-    @KafkaListener(topics = "new_payment", groupId = "shippings-group")
+    @KafkaListener(topics = "new_payment", groupId = "shippings-group", concurrency = "3")
     public void consume(String message) {
         try {
             Order order = objectMapper.readValue(message, Order.class);

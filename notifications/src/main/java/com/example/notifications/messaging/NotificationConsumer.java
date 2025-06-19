@@ -21,7 +21,7 @@ public class NotificationConsumer {
         this.notificationService = notificationService;
     }
 
-    @KafkaListener(topics = "new_shipping", groupId = "notifications-group")
+    @KafkaListener(topics = "new_shipping", groupId = "notifications-group", concurrency = "3")
     public void consume(String message) {
         try {
             Order order = objectMapper.readValue(message, Order.class);

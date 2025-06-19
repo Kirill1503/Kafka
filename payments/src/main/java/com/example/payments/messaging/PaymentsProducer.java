@@ -26,7 +26,7 @@ public class PaymentsProducer {
     public void sendMessage(Order order) {
         try {
             String json = objectMapper.writeValueAsString(order);
-            kafkaTemplate.send(paymentsTopic, json);
+            kafkaTemplate.send(paymentsTopic, order.getId().toString(), json);
             logger.info("Payment message sent to topic {}", paymentsTopic);
         } catch (JsonProcessingException e) {
             logger.error("Error while sending payment message", e);
